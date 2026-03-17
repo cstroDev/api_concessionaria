@@ -5,5 +5,6 @@ export default async function inserirClienteService(cliente){
     validarCamposObrigatoriosCliente(cliente);
     
     let id = await inserirCliente(cliente);
-    return id
+    
+    return id;
 }

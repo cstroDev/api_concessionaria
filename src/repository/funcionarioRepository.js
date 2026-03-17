@@ -3,15 +3,16 @@ import con from "./connection.js";
 export async function inserirFuncionario(funcionario) {
     let comando = `
         INSERT INTO tb_funcionarios (nm_nome, ds_email, ds_senha, nr_telefone)
-        VALUES (?,?,?,?);
-    `
+        VALUES (?,?,?,?)
+    `;
+
     let resposta = await con.query(comando, [funcionario.nome, funcionario.email, funcionario.senha, funcionario.telefone]);
     let info = resposta[0];
 
-    return info.insertId
+    return info.insertId;
 }
 
-export async function listarFuncionario() {
+export async function consultarFuncionario() {
     let comando = `
         SELECT id_funcionario       id,
                nm_nome              nome,
@@ -23,10 +24,32 @@ export async function listarFuncionario() {
                dt_criado_em         criado_em,
                dt_alterado_em       alterado_em
         FROM   tb_funcionarios
-    `
+    `;
+
     let resposta = await con.query(comando);
     let registros = resposta[0];
 
+    return registros;
+}
+
+export async function consultarFuncionarioPorId(id) {
+    let comando = `
+        SELECT id_funcionario       id,
+               nm_nome              nome,
+               ds_email             email,
+               ds_senha             senha,
+               ds_cargo             cargo,
+               nr_telefone          telefone,
+               bt_ativo             ativo,
+               dt_criado_em         criado_em,
+               dt_alterado_em       alterado_em
+        FROM   tb_funcionarios
+        WHERE id_funcionario = ?
+    `;
+
+    let resposta = await con.query(comando, [id]);
+    let registros = resposta[0];
+    
     return registros;
 }
 
@@ -34,7 +57,8 @@ export async function deletarFuncionario(id) {
     let comando = `
         DELETE FROM tb_funcionarios
         WHERE id_funcionario = ?
-    `
+    `;
+
     let resposta = await con.query(comando, [id]);
     let info = resposta[0];
 
@@ -52,7 +76,8 @@ export async function alterarFuncionario(funcionario, id) {
                nr_telefone = ?,
                bt_ativo = ?
         WHERE  id_funcionario = ?
-    `
+    `;
+    
     let resposta = await con.query(comando, [funcionario.nome, funcionario.email, funcionario.senha, funcionario.cargo, funcionario.telefone, funcionario.ativo, id]);
     let info = resposta[0];
 

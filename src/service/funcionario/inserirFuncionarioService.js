@@ -5,5 +5,6 @@ export default async function inserirFuncionarioService(funcionario) {
     validarCamposObrigatoriosFuncionario(funcionario);
 
     let id = await inserirFuncionario(funcionario);
+    
     return id;
 }
