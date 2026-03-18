@@ -16,7 +16,4 @@ export function validarCamposObrigatoriosVenda(venda) {
 
     if (!venda.formaPagamento)
         throw new Error("formaPagamento obrigatório.")
-
-    if (!venda.observacoes)
-        throw new Error("observacoes obrigatório.")
 }
