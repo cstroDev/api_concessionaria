@@ -31,8 +31,3 @@ export function validarCamposObrigatoriosFuncionarioAlteracao(funcionario) {
     if (!funcionario.ativo) 
         throw new Error("Status do funcionário obrigatório.")
 }
-
-export function validarFuncionarioUnico(registros) {
-    if(registros.length == 0)
-        throw new Error("Funcionário não encontrado.");
-}  

@@ -53,7 +53,6 @@ export async function consultarCliente(filtro) {
         parametros.push("%" + filtro.endereco + "%");
     }
 
-
     let resposta = await con.query(comando, parametros);
     let registros = resposta[0];
 
@@ -80,18 +79,6 @@ export async function consultarClientePorId(id) {
     return registros;
 }
 
-export async function deletarCliente(id) {
-    let comando = `
-        DELETE FROM tb_clientes
-        WHERE id_cliente = ?
-    `;
-
-    let resposta = await con.query(comando, [id]);
-    let info = resposta[0];
-
-    return info.affectedRows;
-}
-
 export async function alterarCliente(cliente, id) {
     let comando = `
         UPDATE tb_clientes
@@ -104,6 +91,18 @@ export async function alterarCliente(cliente, id) {
     `;
 
     let resposta = await con.query(comando, [cliente.nome, cliente.cpf, cliente.telefone, cliente.email, cliente.endereco, id]);
+    let info = resposta[0];
+
+    return info.affectedRows;
+}
+
+export async function deletarCliente(id) {
+    let comando = `
+        DELETE FROM tb_clientes
+        WHERE id_cliente = ?
+    `;
+
+    let resposta = await con.query(comando, [id]);
     let info = resposta[0];
 
     return info.affectedRows;

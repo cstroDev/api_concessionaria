@@ -49,24 +49,11 @@ export async function consultarFuncionarioPorId(id) {
 
     let resposta = await con.query(comando, [id]);
     let registros = resposta[0];
-    
+
     return registros;
 }
 
-export async function deletarFuncionario(id) {
-    let comando = `
-        DELETE FROM tb_funcionarios
-        WHERE id_funcionario = ?
-    `;
-
-    let resposta = await con.query(comando, [id]);
-    let info = resposta[0];
-
-    return info.affectedRows;
-}
-
 export async function alterarFuncionario(funcionario, id) {
-    
     let comando = `
         UPDATE tb_funcionarios
         SET    nm_nome = ?,
@@ -77,8 +64,20 @@ export async function alterarFuncionario(funcionario, id) {
                bt_ativo = ?
         WHERE  id_funcionario = ?
     `;
-    
+
     let resposta = await con.query(comando, [funcionario.nome, funcionario.email, funcionario.senha, funcionario.cargo, funcionario.telefone, funcionario.ativo, id]);
+    let info = resposta[0];
+
+    return info.affectedRows;
+}
+
+export async function deletarFuncionario(id) {
+    let comando = `
+        DELETE FROM tb_funcionarios
+        WHERE id_funcionario = ?
+    `;
+
+    let resposta = await con.query(comando, [id]);
     let info = resposta[0];
 
     return info.affectedRows;

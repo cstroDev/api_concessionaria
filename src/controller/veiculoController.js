@@ -1,11 +1,27 @@
-import deletarVeiculoService from "../service/veiculo/deletarVeiculoService.js";
+import inserirVeiculoService from "../service/veiculo/inserirVeiculoService.js";
 import consultarVeiculoService from "../service/veiculo/consultarVeiculoService.js";
 import consultarVeiculoPorIdService from "../service/veiculo/consultarVeiculoPorIdService.js";
-import inserirVeiculoService from "../service/veiculo/inserirVeiculoService.js";
 import alterarVeiculoService from "../service/veiculo/alterarVeiculoService.js";
+import deletarVeiculoService from "../service/veiculo/deletarVeiculoService.js";
 
 import { Router } from "express";
 const endpoints = Router();
+
+endpoints.post('/veiculos', async (req, resp) => {
+    try {
+        let veiculo = req.body;
+        
+        let id = await inserirVeiculoService(veiculo);
+
+        resp.send({
+            id: id
+        });
+
+    } catch (err) {
+        logErro(err);
+        resp.status(400).send(criarErro(err));
+    }
+});
 
 endpoints.get('/veiculos', async (req, resp) => {
     try {
@@ -27,7 +43,7 @@ endpoints.get('/veiculos', async (req, resp) => {
 
     } catch (err) {
         logErro(err);
-        resp.status(400).send(criarErro(err))
+        resp.status(400).send(criarErro(err));
     }
 });
 
@@ -43,17 +59,16 @@ endpoints.get('/veiculos/:id', async (req, resp) => {
         logErro(err);
         resp.status(400).send(criarErro(err));
     }
-})
+});
 
-endpoints.post('/veiculos', async (req, resp) => {
+endpoints.put('/veiculos/:id', async (req, resp) => {
     try {
+        let id = req.params.id;
         let veiculo = req.body;
-        
-        let id = await inserirVeiculoService(veiculo);
 
-        resp.send({
-            id: id
-        })
+        await alterarVeiculoService(veiculo, id);
+
+        resp.status(204).send();
 
     } catch (err) {
         logErro(err);
@@ -66,21 +81,6 @@ endpoints.delete('/veiculos/:id', async (req, resp) => {
         let id = req.params.id;
 
         await deletarVeiculoService(id);
-
-        resp.status(204).send();
-
-    } catch (err) {
-        logErro(err);
-        resp.status(400).send(criarErro(err));
-    }
-});
-
-endpoints.put('/veiculos/:id', async (req, resp) => {
-    try {
-        let id = req.params.id;
-        let veiculo = req.body;
-
-        await alterarVeiculoService(veiculo, id);
 
         resp.status(204).send();
 

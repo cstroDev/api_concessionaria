@@ -7,5 +7,5 @@ export default async function alterarClienteService(cliente, id) {
     let linhasAfetadas = await alterarCliente(cliente, id);
 
     if (linhasAfetadas == 0)
-        throw new Error("Nenhum cliente foi alterado.");
+        throw new Error("Nenhum cliente alterado.");
 }

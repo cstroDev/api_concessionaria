@@ -1,9 +1,8 @@
 import { consultarFuncionarioPorId } from "../../repository/funcionarioRepository.js";
 import { consultarClientePorId } from "../../repository/clienteRepository.js";
-import { consultarVeiculoPorId } from "../../repository/veiculoRepository.js";
+import { consultarVeiculoPorId, alterarStatusVeiculo } from "../../repository/veiculoRepository.js";
 import { alterarVenda, consultarVendaPorId } from "../../repository/vendaRepository.js";
-
-import { validarCamposObrigatoriosVenda } from "../../validation/venda/vendasValidation.js"
+import { validarCamposObrigatoriosVenda } from "../../validation/venda/vendasValidation.js";
 
 export default async function alterarVendaService(venda, id) {
     validarCamposObrigatoriosVenda(venda);
@@ -30,8 +29,11 @@ export default async function alterarVendaService(venda, id) {
     if (idVeiculoNovo !== idVeiculoAtual && veiculo[0].status === 'vendido')
         throw new Error('Veículo já vendido.');
 
+    await alterarStatusVeiculo(idVeiculoAtual, 'disponivel');
+    await alterarStatusVeiculo(idVeiculoNovo, 'vendido');
+
     let linhasAfetadas = await alterarVenda(venda, id);
 
     if (linhasAfetadas == 0)
-        throw new Error("Nenhuma venda foi alterada.")
+        throw new Error("Nenhuma venda alterada.")
 }

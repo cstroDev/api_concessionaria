@@ -5,10 +5,14 @@ export default async function deletarVendaService(id) {
     let venda = await consultarVendaPorId(id);
 
     if (!venda[0])
-        throw new Error('Venda não encontrado');
+        throw new Error('Venda não encontrado')
 
-    let idVeicul = venda[0].idVeiculo;
+    let idVeiculo = venda[0].idVeiculo;
 
-    await alterarStatusVeiculo(idVeicul, 'disponivel');
-    await deletarVenda(id);
+    await alterarStatusVeiculo(idVeiculo, 'disponivel');
+
+    let linhasAfetadas = await deletarVenda(id);
+
+    if(linhasAfetadas == 0)
+        throw new Error("Nenhuma venda removida.")
 }

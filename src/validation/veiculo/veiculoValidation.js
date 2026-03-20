@@ -28,12 +28,4 @@ export function validarCamposObrigatoriosVeiculo(veiculo) {
 
     if (!veiculo.status)
         throw new Error("Status do veículo é obrigatório.")
-
-    if (!veiculo.descricao)
-        throw new Error("Descricao do veículo é obrigatório.")
-}
-
-export function validarVeiculoUnico(registros) {
-    if(registros.length == 0)
-        throw new Error("Veículo não encontrado.");
 }

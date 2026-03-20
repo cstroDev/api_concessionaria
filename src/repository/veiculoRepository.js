@@ -13,7 +13,6 @@ export async function inserirVeiculo(veiculo) {
 }
 
 export async function consultarVeiculo(filtro) {
-
     let comando = `
         SELECT id_veiculo           id,
                nm_marca             marca,
@@ -108,18 +107,6 @@ export async function consultarVeiculoPorId(id) {
     return registros;
 }
 
-export async function deletarVeiculo(id) {
-    let comando = `
-        DELETE FROM tb_veiculos
-        WHERE id_veiculo = ?
-    `;
-
-    let resposta = await con.query(comando, [id]);
-    let info = resposta[0];
-
-    return info.affectedRows;
-}
-
 export async function alterarVeiculo(veiculo, id) {
     let comando = `
         UPDATE tb_veiculos
@@ -151,6 +138,18 @@ export async function alterarStatusVeiculo(idVeiculo, status) {
     `;
 
     let resposta = await con.query(comando, [status, idVeiculo]);
+    let info = resposta[0];
+
+    return info.affectedRows;
+}
+
+export async function deletarVeiculo(id) {
+    let comando = `
+        DELETE FROM tb_veiculos
+        WHERE id_veiculo = ?
+    `;
+
+    let resposta = await con.query(comando, [id]);
     let info = resposta[0];
 
     return info.affectedRows;

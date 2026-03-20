@@ -8,17 +8,14 @@ export default async function inserirVendaService(venda) {
     validarCamposObrigatoriosVenda(venda);
 
     let cliente = await consultarClientePorId(venda.idCliente);
-
     if (!cliente[0])
         throw new Error('Cliente não encontrado.')
 
     let funcionario = await consultarFuncionarioPorId(venda.idFuncionario);
-
     if (!funcionario[0])
         throw new Error('Funcionário não encontrado.')
 
     let veiculo = await consultarVeiculoPorId(venda.idVeiculo);
-
     if (!veiculo[0])
         throw new Error('Veículo não encontrado.')
 

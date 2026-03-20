@@ -49,11 +49,12 @@ endpoints.get('/funcionarios/:id', async (req, resp) => {
     }
 });
 
-endpoints.delete('/funcionarios/:id', async (req, resp) => {
+endpoints.put('/funcionarios/:id', async (req, resp) => {
     try {
         let id = req.params.id;
-
-        await deletarFuncionarioService(id);
+        let funcionario = req.body;
+        
+        await alterarFuncionarioService(funcionario, id);
 
         resp.status(204).send()
 
@@ -63,12 +64,11 @@ endpoints.delete('/funcionarios/:id', async (req, resp) => {
     }
 });
 
-endpoints.put('/funcionarios/:id', async (req, resp) => {
+endpoints.delete('/funcionarios/:id', async (req, resp) => {
     try {
         let id = req.params.id;
-        let funcionario = req.body;
-        
-        await alterarFuncionarioService(funcionario, id);
+
+        await deletarFuncionarioService(id);
 
         resp.status(204).send()
 

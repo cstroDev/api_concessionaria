@@ -7,5 +7,5 @@ export default async function alterarVeiculoService(veiculo, id) {
     let linhasAfetadas = await alterarVeiculo(veiculo, id);
 
     if (linhasAfetadas == 0)
-        throw new Error("Nenhum veículo foi alterado.");
+        throw new Error("Nenhum veículo alterado.");
 }

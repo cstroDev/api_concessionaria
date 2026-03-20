@@ -1,12 +1,12 @@
 import { consultarFuncionarioPorId } from "../../repository/funcionarioRepository.js";
-import { validarFuncionarioUnico } from "../../validation/funcionario/funcionarioValidation.js";
 
 export default async function consultarFuncionarioPorIdService(id) {
     let registros = await consultarFuncionarioPorId(id);
-    
-    validarFuncionarioUnico(registros);
+
+    if (registros.length == 0)
+        throw new Error("Funcionário não encontrado.");
 
     let funcionario = registros[0];
-    
+
     return funcionario;
 }

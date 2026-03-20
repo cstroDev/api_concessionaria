@@ -14,8 +14,3 @@ export function validarCamposObrigatoriosCliente(cliente) {
     if(!cliente.endereco)
         throw new Error("Endereço do cliente obrigatório.");
 }
-
-export function validarClienteUnico(registros) {
-    if(registros.length == 0)
-        throw new Error("Cliente não encontrado.");
-}

@@ -4,5 +4,5 @@ export default async function deletarClienteService(id) {
     let linhasAfetadas = await deletarCliente(id);
 
     if (linhasAfetadas == 0)
-        throw new Error("Nenhum cliente foi removido.");
+        throw new Error("Nenhum cliente removido.");
 }

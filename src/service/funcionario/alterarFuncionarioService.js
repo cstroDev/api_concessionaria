@@ -7,5 +7,5 @@ export default async function alterarFuncionarioService(funcionario, id) {
     let linhasAfetadas = await alterarFuncionario(funcionario, id);
     
     if (linhasAfetadas == 0) 
-        throw new Error("Nenhum funcionário foi alterado.");
+        throw new Error("Nenhum funcionário alterado.");
 }
